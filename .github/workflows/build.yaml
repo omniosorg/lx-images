@@ -50,7 +50,7 @@ jobs:
                   docker  cp $container:/ - > $tar
                   docker rm $container
                   docker rmi $tag
-                  gzip $tar
+                  xz $tar
             - name: Upload Release Asset
               id: upload_release_asset
               uses: actions/upload-release-asset@v1
@@ -58,6 +58,6 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ needs.prepare.outputs.upload_url }}
-                  asset_path: ./ubuntu/lx-ubuntu-${{ matrix.RELEASE }}.tar.gz
-                  asset_name: lx-ubuntu-${{ matrix.RELEASE }}-${{ needs.prepare.outputs.tag }}.tar.gz
+                  asset_path: ./ubuntu/lx-ubuntu-${{ matrix.RELEASE }}.tar.xz
+                  asset_name: lx-ubuntu-${{ matrix.RELEASE }}-${{ needs.prepare.outputs.tag }}.tar.xz
                   asset_content_type: application/x-tar
