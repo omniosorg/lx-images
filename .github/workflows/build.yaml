@@ -20,7 +20,7 @@ jobs:
                   release_name: Release ${{ github.ref }}
                   draft: false
                   prerelease: false
-    build:
+    ubuntu:
         needs: prepare
         strategy:
             matrix:
@@ -28,7 +28,7 @@ jobs:
                     - 20.04
                     - 18.04
         
-        name: Create LX Image ${{ matrix.RELEASE }}
+        name: Create Ubuntu LX Image ${{ matrix.RELEASE }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
