@@ -1,23 +1,27 @@
 name: Build LX Images
 on:
     push:
-        tags:
-            - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+        branches:
+            - master
 jobs:
     prepare:
-        name: Create Release
+        name: Create Release ${{ github.ref }}
         runs-on: ubuntu-latest
         outputs:
             upload_url: ${{ steps.create_release.outputs.upload_url }}
+            tag: ${{ steps.timestamp.outputs.tag }}
         steps:
+            - name: Create Time Stamp Tag
+              id: tag
+              run: date +'::set-output name=tag::%Y-%m-%d_%H-%M-%S'
             - name: Create Release
               id: create_release
               uses: actions/create-release@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
-                  tag_name: ${{ github.ref }}
-                  release_name: Release ${{ github.ref }}
+                  tag_name: ${{ steps.time_stamp.outputs.tag }}
+                  release_name: Release ${{ steps.tag.outputs.tag }}
                   draft: false
                   prerelease: false
     ubuntu:
@@ -28,7 +32,7 @@ jobs:
                     - 20.04
                     - 18.04
         
-        name: Create Ubuntu LX Image ${{ matrix.RELEASE }}
+        name: Build Ubuntu ${{ matrix.RELEASE }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -53,6 +57,6 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ needs.prepare.outputs.upload_url }} 
-                  asset_path: ./lx-ubuntu-${{ matrix.RELEASE }}.tar.xz
-                  asset_name: lx-ubuntu-${{ matrix.RELEASE }}.tar.xz
+                  asset_path: ./ubuntu/lx-ubuntu-${{ matrix.RELEASE }}.tar.xz
+                  asset_name: lx-ubuntu-${{ matrix.RELEASE }}-${{ needs.prepare.outputs.tag }}.tar.xz
                   asset_content_type: application/x-tar
