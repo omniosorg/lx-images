@@ -12,6 +12,7 @@ apt-get install -yq \
     lsb-release \
     less \
     joe \
+    vim \
     net-tools
 apt-get -qq clean
 apt-get -qq autoremove 
