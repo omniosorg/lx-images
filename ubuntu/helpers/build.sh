@@ -8,6 +8,8 @@ yes | unminimize
 apt-get install -yq \
     systemd-sysv \
     vim \
+    binutils \
+    dialog \
     openssh-server \
     sudo \
     iproute2 \
