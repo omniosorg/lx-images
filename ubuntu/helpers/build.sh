@@ -7,6 +7,9 @@ apt-get install -yq apt-utils
 yes | unminimize
 apt-get install -yq \
     systemd-sysv \
+    vim \
+    openssh-server \
+    sudo \
     iproute2 \
     curl \
     lsb-release \
