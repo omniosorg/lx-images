@@ -1,5 +1,7 @@
 # Automated build System for LX Images
 
+![Build LX Images](https://github.com/omniosorg/lx-images/workflows/Build%20LX%20Images/badge.svg)
+
 Curently the following linuxes are supported
 
 * Ubuntu 18.04
