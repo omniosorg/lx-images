@@ -1,6 +1,8 @@
 name: Build LX Images
 on:
     push:
+        paths-ignore: 
+            - '**.md'
         branches:
             - master
 jobs:
