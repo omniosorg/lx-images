@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 set -x
-echo Installing Ubuntu $UBUNTU
+echo Installing Ubuntu $UBUNTU_RELEASE
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -yq apt-utils
@@ -25,7 +25,7 @@ apt-get -qq autoremove
 
 # disable services we do not need
 systemctl disable systemd-resolved fstrim.timer fstrim
-if [ ${UBUNTU} = "20.04" ]; then
+if [ ${UBUNTU_RELEASE} = "20.04" ]; then
     systemctl disable e2scrub_reap e2scrub_all e2scrub_all.timer
     # systemd does not seem to realize that /dev/null is NOT a terminal
     # under lx but when trying to chown it, it fails and thus the `User=`
