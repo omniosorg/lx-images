@@ -34,7 +34,7 @@ if [ ${UBUNTU_RELEASE} = "20.04" ]; then
     # lx :) ...
     touch /etc/systemd/null
     mkdir -p /etc/systemd/system/user@.service.d
-    echo -e "[Service]\nStandardInput=file:/etc/systemd/null\n" > /etc/systemd/system/user@.service.d/override.conf
+    echo "[Service]\nStandardInput=file:/etc/systemd/null\n" > /etc/systemd/system/user@.service.d/override.conf
 fi
 
 # disable systemd faeatures not present in lx (namely cgroup support)
