@@ -24,16 +24,16 @@ apt-get -qq autoremove
 
 # disable services we do not need
 systemctl disable systemd-resolved fstrim.timer fstrim
-if [ $UBUNTU = 20.04 ]; then
+if [ ${UBUNTU} = "20.04" ]; then
     systemctl disable e2scrub_reap e2scrub_all e2scrub_all.timer
     # systemd does not seem to realize that /dev/null is NOT a terminal
     # under lx but when trying to chown it, it fails and thus the `User=`
     # directive does not work properly ... this little trick fixes the
     # behavior for the user@.service but obviously it has to be fixed in
     # lx :) ...
-    touch /etc/empty
+    touch /etc/systemd/null
     mkdir -p /etc/systemd/system/user@.service.d
-    echo StandardInput=file:/etc/empty > /etc/systemd/system/user@.service.d/override.conf
+    echo -e "[Service]\nStandardInput=file:/etc/systemd/null\n" > /etc/systemd/system/user@.service.d/override.conf
 fi
 
 # disable systemd faeatures not present in lx (namely cgroup support)
