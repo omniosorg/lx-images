@@ -47,7 +47,7 @@ jobs:
                   cd ubuntu
                   tar=lx-ubuntu-${{ matrix.RELEASE }}.tar
                   tag=release:$$
-                  docker build --target $tag --build-arg release=${{ matrix.RELEASE }} .
+                  docker build --target $tag --build-arg UBUNTU_RELEASE=${{ matrix.RELEASE }} .
                   container=$(docker create $tag)
                   docker  cp $container:/ - > $tar
                   docker rm $container
