@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 set -x
+echo Installing Ubuntu $UBUNTU
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -yq apt-utils
