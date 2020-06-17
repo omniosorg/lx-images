@@ -1,6 +1,5 @@
 #!/bin/sh
-set -e
-set -x
+set -ex
 echo Installing Ubuntu $UBUNTU_RELEASE
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
@@ -53,7 +52,6 @@ cp locale /etc/default/locale
 # make sure we get fresh ssh keys on first boot
 /bin/rm -f -v /etc/ssh/ssh_host_*_key*
 cp regenerate_ssh_host_keys.service /etc/systemd/system
-systemctl daemon-reload
 systemctl enable regenerate_ssh_host_keys
 # Remove the divert that disables services
 rm -f /sbin/initctl
