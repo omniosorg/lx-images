@@ -44,6 +44,7 @@ jobs:
             - name: Build Image
               id: build_image
               run: |
+                  set -xe
                   cd ubuntu
                   tar=lx-ubuntu-${{ matrix.RELEASE }}.tar
                   tag=release:$$
