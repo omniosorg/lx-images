@@ -18,9 +18,10 @@ apt-get install -yq \
     less \
     joe \
     man-db \
-    net-tools
+    net-tools \
+    iputils-ping
 apt-get -qq clean
-apt-get -qq autoremove 
+apt-get -qq autoremove
 
 # disable services we do not need
 systemctl disable systemd-resolved fstrim.timer fstrim
@@ -40,9 +41,9 @@ fi
 for S in systemd-hostnamed systemd-localed systemd-timedated systemd-logind systemd-initctl  systemd-journald; do
   O=/etc/systemd/system/${S}.service.d
   mkdir -p $O
-  cp override.conf ${O}/override.conf  
+  cp override.conf ${O}/override.conf
 done
- 
+
 # Prevents apt-get upgrade issue when upgrading in a container environment.
 # Similar to https://bugs.launchpad.net/ubuntu/+source/makedev/+bug/1675163
 cp makedev /etc/apt/preferences.d/makedev
