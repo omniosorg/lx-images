@@ -50,7 +50,7 @@ jobs:
                   tag=release:$$
                   docker build --tag $tag --build-arg UBUNTU_RELEASE=${{ matrix.RELEASE }} .
                   container=$(docker create $tag)
-                  docker  cp $container:/ - > $tar
+                  docker  cp $container:. - > $tar
                   docker rm $container
                   docker rmi $tag
                   xz $tar
