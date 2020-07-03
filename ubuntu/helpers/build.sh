@@ -49,11 +49,17 @@ done
 cp makedev /etc/apt/preferences.d/makedev
 cp locale.conf /etc/locale.conf
 cp locale /etc/default/locale
+cp hosts /etc/hosts.lx
 
 # make sure we get fresh ssh keys on first boot
 /bin/rm -f -v /etc/ssh/ssh_host_*_key*
 cp regenerate_ssh_host_keys.service /etc/systemd/system
 systemctl enable regenerate_ssh_host_keys
+
+# hostfile fix
+cp create_hosts_file.service /etc/systemd/system
+systemctl enable create_hosts_file.service
+
 # Remove the divert that disables services
 rm -f /sbin/initctl
 dpkg-divert --local --rename --remove /sbin/initctl
