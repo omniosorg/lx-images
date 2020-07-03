@@ -4,8 +4,8 @@ After=network.target auditd.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/mv /etc/hosts.lx /etc/hosts
-ExecStart=/usr/bin/sed -i s/HOSTNAME/%H/g /etc/hosts
+ExecStart=/bin/mv /etc/hosts.lx /etc/hosts
+ExecStart=/bin/sed -i s/HOSTNAME/%H/g /etc/hosts
 ExecStartPost=/bin/systemctl disable create_hosts_file.service
 
 [Install]
