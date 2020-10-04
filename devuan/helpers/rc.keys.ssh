@@ -1,0 +1,21 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          keys.ssh
+# Required-Start:    $local_fs $time
+# Required-Stop:     $local_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:
+# Short-Description: Generate ssh host keys if they are missing
+### END INIT INFO
+
+. /lib/init/vars.sh
+. /lib/lsb/init-functions
+
+case "$1" in
+  start|"")
+	[ "$VERBOSE" = no ] || log_action_begin_msg "Generating SSH keys"
+	/usr/bin/ssh-keygen -A -v
+	;;
+esac
+
+:
