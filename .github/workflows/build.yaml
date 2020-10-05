@@ -27,6 +27,7 @@ jobs:
                   release_name: Release ${{ steps.build_tag.outputs.tag }}
                   draft: false
                   prerelease: false
+
     ubuntu:
         needs: prepare
         strategy:
@@ -50,7 +51,7 @@ jobs:
                   tag=release:$$
                   docker build --tag $tag --build-arg UBUNTU_RELEASE=${{ matrix.RELEASE }} .
                   container=$(docker create $tag)
-                  docker  cp $container:. - > $tar
+                  docker cp $container:. - > $tar
                   docker rm $container
                   docker rmi $tag
                   xz $tar
@@ -63,6 +64,80 @@ jobs:
                   upload_url: ${{ needs.prepare.outputs.upload_url }}
                   asset_path: ./ubuntu/lx-ubuntu-${{ matrix.RELEASE }}.tar.xz
                   asset_name: lx-ubuntu-${{ matrix.RELEASE }}-${{ needs.prepare.outputs.tag }}.tar.xz
+                  asset_content_type: application/x-xz
+
+    debian:
+        needs: prepare
+        strategy:
+            matrix:
+                RELEASE:
+                    - buster
+
+        name: Build Debian ${{ matrix.RELEASE }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Build Image
+              id: build_image
+              run: |
+                  set -xe
+                  cd debian
+                  tar=lx-debian-${{ matrix.RELEASE }}.tar
+                  tag=release:$$
+                  docker build --tag $tag --build-arg DEBIAN_RELEASE=${{ matrix.RELEASE }} .
+                  container=$(docker create $tag)
+                  docker cp $container:. - > $tar
+                  docker rm $container
+                  docker rmi $tag
+                  xz $tar
+            - name: Upload Release Asset
+              id: upload_release_asset
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ needs.prepare.outputs.upload_url }}
+                  asset_path: ./debian/lx-debian-${{ matrix.RELEASE }}.tar.xz
+                  asset_name: lx-debian-${{ matrix.RELEASE }}-${{ needs.prepare.outputs.tag }}.tar.xz
+                  asset_content_type: application/x-xz
+
+    devuan:
+        needs: prepare
+        strategy:
+            matrix:
+                RELEASE:
+                    - beowulf
+
+        name: Build Devuan ${{ matrix.RELEASE }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Build Image
+              id: build_image
+              run: |
+                  set -xe
+                  cd devuan
+                  tar=lx-devuan-${{ matrix.RELEASE }}.tar
+                  tag=release:$$
+                  docker build --tag $tag --build-arg DEVUAN_RELEASE=${{ matrix.RELEASE }} .
+                  container=$(docker create $tag)
+                  docker cp $container:. - > $tar
+                  docker rm $container
+                  docker rmi $tag
+                  xz $tar
+            - name: Upload Release Asset
+              id: upload_release_asset
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ needs.prepare.outputs.upload_url }}
+                  asset_path: ./devuan/lx-devuan-${{ matrix.RELEASE }}.tar.xz
+                  asset_name: lx-devuan-${{ matrix.RELEASE }}-${{ needs.prepare.outputs.tag }}.tar.xz
                   asset_content_type: application/x-xz
 
     void:
