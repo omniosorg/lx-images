@@ -75,3 +75,6 @@ rm dtracetools-lx_1.0_amd64.deb
 
 # some smf helper folders
 mkdir -p /var/svc /var/db
+
+# remove .dockerenv file becose it lx is not a docker
+rm /.dockerenv
