@@ -64,6 +64,10 @@ systemctl enable regenerate_ssh_host_keys
 cp create_hosts_file.service /etc/systemd/system
 systemctl enable create_hosts_file.service
 
+# remove .dockerenv file because lx is not a docker
+cp remove_dockerenv_file.service /etc/systemd/system
+systemctl enable create_hosts_file.service
+
 # Remove the divert that disables services
 rm -f /sbin/initctl
 dpkg-divert --local --rename --remove /sbin/initctl
@@ -75,6 +79,3 @@ rm dtracetools-lx_1.0_amd64.deb
 
 # some smf helper folders
 mkdir -p /var/svc /var/db
-
-# remove .dockerenv file because lx is not a docker
-rm /.dockerenv
