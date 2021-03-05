@@ -28,7 +28,8 @@ xbps-install -ySu \
 	iproute2 iputils net-tools \
 	vpm vsv \
 	ncurses-base \
-	openssh joe vim
+	openssh joe vim \
+	jq
 
 xbps-alternatives -g vi -s vim-common
 
