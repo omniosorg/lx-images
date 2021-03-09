@@ -25,6 +25,7 @@ apt-get -qq clean
 apt-get -qq autoremove
 
 # disable services we do not need
+systemctl mask systemd-remount-fs.service
 systemctl mask systemd-resolved fstrim.timer fstrim
 if [ ${UBUNTU_RELEASE} = "20.04" ]; then
     systemctl mask e2scrub_reap e2scrub_all e2scrub_all.timer
