@@ -50,6 +50,13 @@ do
     cp override.conf ${O}/override.conf
 done
 
+# This service doesn't exist yet but systemd will happily create the /dev/null
+# mapping for it. It comes in with nfs-common and fails because lx doesn't know
+# about rpc_pipefs.  NFSv4 still seems to mount without this service and
+# lx_lockd is still started. Let's hide it from the user so they see don't see
+# unecessary failed services.
+systemctl mask run-rpc_pipefs.mount
+
 # Prevents apt-get upgrade issue when upgrading in a container environment.
 # Similar to https://bugs.launchpad.net/ubuntu/+source/makedev/+bug/1675163
 cp makedev /etc/apt/preferences.d/makedev
