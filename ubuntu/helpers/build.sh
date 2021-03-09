@@ -19,14 +19,15 @@ apt-get install -yq \
     joe \
     man-db \
     net-tools \
-    iputils-ping
+    iputils-ping \
+    locales
 apt-get -qq clean
 apt-get -qq autoremove
 
 # disable services we do not need
-systemctl disable systemd-resolved fstrim.timer fstrim
+systemctl mask systemd-resolved fstrim.timer fstrim
 if [ ${UBUNTU_RELEASE} = "20.04" ]; then
-    systemctl disable e2scrub_reap e2scrub_all e2scrub_all.timer
+    systemctl mask e2scrub_reap e2scrub_all e2scrub_all.timer
     # systemd does not seem to realize that /dev/null is NOT a terminal
     # under lx but when trying to chown it, it fails and thus the `User=`
     # directive does not work properly ... this little trick fixes the
@@ -51,9 +52,13 @@ done
 # Prevents apt-get upgrade issue when upgrading in a container environment.
 # Similar to https://bugs.launchpad.net/ubuntu/+source/makedev/+bug/1675163
 cp makedev /etc/apt/preferences.d/makedev
+cp locale.gen /etc/locale.gen
 cp locale.conf /etc/locale.conf
 cp locale /etc/default/locale
 cp hosts /etc/hosts.lx
+
+# Generate missing locales
+locale-gen
 
 # make sure we get fresh ssh keys on first boot
 /bin/rm -f -v /etc/ssh/ssh_host_*_key*
