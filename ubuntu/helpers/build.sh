@@ -19,14 +19,16 @@ apt-get install -yq \
     joe \
     man-db \
     net-tools \
-    iputils-ping
+    iputils-ping \
+    locales
 apt-get -qq clean
 apt-get -qq autoremove
 
 # disable services we do not need
-systemctl disable systemd-resolved fstrim.timer fstrim
+systemctl mask systemd-remount-fs.service
+systemctl mask systemd-resolved fstrim.timer fstrim
 if [ ${UBUNTU_RELEASE} = "20.04" ]; then
-    systemctl disable e2scrub_reap e2scrub_all e2scrub_all.timer
+    systemctl mask e2scrub_reap e2scrub_all e2scrub_all.timer
     # systemd does not seem to realize that /dev/null is NOT a terminal
     # under lx but when trying to chown it, it fails and thus the `User=`
     # directive does not work properly ... this little trick fixes the
@@ -48,12 +50,23 @@ do
     cp override.conf ${O}/override.conf
 done
 
+# This service doesn't exist yet but systemd will happily create the /dev/null
+# mapping for it. It comes in with nfs-common and fails because lx doesn't know
+# about rpc_pipefs.  NFSv4 still seems to mount without this service and
+# lx_lockd is still started. Let's hide it from the user so they see don't see
+# unecessary failed services.
+systemctl mask run-rpc_pipefs.mount
+
 # Prevents apt-get upgrade issue when upgrading in a container environment.
 # Similar to https://bugs.launchpad.net/ubuntu/+source/makedev/+bug/1675163
 cp makedev /etc/apt/preferences.d/makedev
+cp locale.gen /etc/locale.gen
 cp locale.conf /etc/locale.conf
 cp locale /etc/default/locale
 cp hosts /etc/hosts.lx
+
+# Generate missing locales
+locale-gen
 
 # make sure we get fresh ssh keys on first boot
 /bin/rm -f -v /etc/ssh/ssh_host_*_key*
