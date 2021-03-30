@@ -79,7 +79,7 @@ systemctl enable create_hosts_file.service
 
 # remove .dockerenv file because lx is not a docker
 cp remove_dockerenv_file.service /etc/systemd/system
-systemctl enable create_hosts_file.service
+systemctl enable remove_dockerenv_file.service
 
 # Remove the divert that disables services
 rm -f /sbin/initctl
