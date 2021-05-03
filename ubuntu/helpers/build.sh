@@ -20,7 +20,8 @@ apt-get install -yq \
     man-db \
     net-tools \
     iputils-ping \
-    locales
+    locales \
+    rsync
 apt-get -qq clean
 apt-get -qq autoremove
 
