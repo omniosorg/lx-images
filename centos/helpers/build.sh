@@ -55,9 +55,8 @@ cp locale /etc/default/locale
 cp hosts /etc/hosts.lx
 
 # make sure we get fresh ssh keys on first boot
+# note that centos uses the sshd-keygen@.service to regenerate missing keys
 /bin/rm -f -v /etc/ssh/ssh_host_*_key*
-cp regenerate_ssh_host_keys.service /etc/systemd/system
-systemctl enable regenerate_ssh_host_keys
 
 # hostfile fix
 cp create_hosts_file.service /etc/systemd/system
