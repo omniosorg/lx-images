@@ -22,16 +22,6 @@ systemctl mask systemd-remount-fs.service
 systemctl mask systemd-resolved fstrim.timer fstrim
 systemctl mask e2scrub_reap e2scrub_all e2scrub_all.timer
 
-# systemd does not seem to realize that /dev/null is NOT a terminal
-# under lx but when trying to chown it, it fails and thus the `User=`
-# directive does not work properly ... this little trick fixes the
-# behavior for the user@.service but obviously it has to be fixed in
-# lx :) ...
-touch /etc/systemd/null
-mkdir -p /etc/systemd/system/user@.service.d
-echo "[Service]\nStandardInput=file:/etc/systemd/null\n" \
-> /etc/systemd/system/user@.service.d/override.conf
-
 # disable systemd features not present in lx (e.g. cgroup support)
 for S in \
     systemd-hostnamed systemd-localed systemd-timedated systemd-logind \
