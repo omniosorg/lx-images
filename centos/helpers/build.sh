@@ -39,9 +39,7 @@ done
 # unecessary failed services.
 systemctl mask run-rpc_pipefs.mount
 
-cp locale.gen /etc/locale.gen
-cp locale.conf /etc/locale.conf
-cp locale /etc/default/locale
+# lx hosts file
 cp hosts /etc/hosts.lx
 
 # make sure we get fresh ssh keys on first boot
