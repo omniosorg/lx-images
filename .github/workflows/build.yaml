@@ -173,3 +173,39 @@ jobs:
                   asset_name: lx-void-${{ needs.prepare.outputs.tag }}.tar.xz
                   asset_content_type: application/x-xz
 
+    centos:
+        needs: prepare
+        strategy:
+            matrix:
+                RELEASE:
+                    - 8
+
+        name: Build Centos ${{ matrix.RELEASE }}
+        runs-on: centos-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Build Image
+              id: build_image
+              run: |
+                  set -xe
+                  cd centos
+                  tar=lx-centos-${{ matrix.RELEASE }}.tar
+                  tag=release:$$
+                  docker build --tag $tag --build-arg CENTOS_RELEASE=${{ matrix.RELEASE }} .
+                  container=$(docker create $tag)
+                  docker cp $container:. - > $tar
+                  docker rm $container
+                  docker rmi $tag
+                  xz $tar
+            - name: Upload Release Asset
+              id: upload_release_asset
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ needs.prepare.outputs.upload_url }}
+                  asset_path: ./centos/lx-centos-${{ matrix.RELEASE }}.tar.xz
+                  asset_name: lx-centos-${{ matrix.RELEASE }}-${{ needs.prepare.outputs.tag }}.tar.xz
+                  asset_content_type: application/x-xz
