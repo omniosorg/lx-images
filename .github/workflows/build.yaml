@@ -181,7 +181,7 @@ jobs:
                     - 8
 
         name: Build Centos ${{ matrix.RELEASE }}
-        runs-on: centos-latest
+        runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v2
