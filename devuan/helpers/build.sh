@@ -8,6 +8,7 @@ apt-get install -yq apt-utils
 apt-get install -yq \
     vim \
     binutils \
+    cron \
     openssh-server \
     sudo \
     iproute2 \

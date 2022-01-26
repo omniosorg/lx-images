@@ -9,6 +9,7 @@ apt-get install -yq \
     systemd-sysv \
     vim \
     binutils \
+    cron \
     dialog \
     openssh-server \
     sudo \
