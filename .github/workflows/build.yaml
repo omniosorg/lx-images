@@ -110,6 +110,7 @@ jobs:
         strategy:
             matrix:
                 RELEASE:
+                    - chimaera
                     - beowulf
 
         name: Build Devuan ${{ matrix.RELEASE }}

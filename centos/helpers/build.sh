@@ -3,6 +3,7 @@ set -ex
 echo Installing Centos $CENTOS_RELEASE
 dnf update -y
 dnf install -y \
+    cronie \
     systemd-sysv \
     vim \
     binutils \
