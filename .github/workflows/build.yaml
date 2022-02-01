@@ -175,14 +175,15 @@ jobs:
                   asset_name: lx-void-${{ needs.prepare.outputs.tag }}.tar.xz
                   asset_content_type: application/x-xz
 
-    centos:
+    centos-stream:
         needs: prepare
         strategy:
             matrix:
                 RELEASE:
                     - 8
+                    - 9
 
-        name: Build Centos ${{ matrix.RELEASE }}
+        name: Build Centos Stream ${{ matrix.RELEASE }}
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -193,9 +194,9 @@ jobs:
               run: |
                   set -xe
                   cd centos
-                  tar=lx-centos-${{ matrix.RELEASE }}.tar
+                  tar=lx-centos-stream-${{ matrix.RELEASE }}.tar
                   tag=release:$$
-                  docker build --tag $tag --build-arg CENTOS_RELEASE=${{ matrix.RELEASE }} .
+                  docker build --tag $tag --build-arg CENTOS_RELEASE=stream${{ matrix.RELEASE }} .
                   container=$(docker create $tag)
                   docker cp $container:. - > $tar
                   docker rm $container
@@ -208,6 +209,6 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
                   upload_url: ${{ needs.prepare.outputs.upload_url }}
-                  asset_path: ./centos/lx-centos-${{ matrix.RELEASE }}.tar.xz
-                  asset_name: lx-centos-${{ matrix.RELEASE }}-${{ needs.prepare.outputs.tag }}.tar.xz
+                  asset_path: ./centos/lx-centos-stream-${{ matrix.RELEASE }}.tar.xz
+                  asset_name: lx-centos-stream-${{ matrix.RELEASE }}-${{ needs.prepare.outputs.tag }}.tar.xz
                   asset_content_type: application/x-xz
