@@ -193,7 +193,7 @@ jobs:
               id: build_image
               run: |
                   set -xe
-                  cd centos
+                  cd centos-stream
                   tar=lx-centos-stream-${{ matrix.RELEASE }}.tar
                   tag=release:$$
                   docker build --tag $tag --build-arg CENTOS_RELEASE=stream${{ matrix.RELEASE }} .
