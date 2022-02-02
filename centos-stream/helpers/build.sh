@@ -2,7 +2,7 @@
 set -ex
 echo Installing Centos $CENTOS_RELEASE
 dnf update -y
-dnf install -y \
+dnf install -y --allowerasing \
     cronie \
     systemd-sysv \
     vim \
