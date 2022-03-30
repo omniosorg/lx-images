@@ -212,3 +212,41 @@ jobs:
                   asset_path: ./centos-stream/lx-centos-stream-${{ matrix.RELEASE }}.tar.xz
                   asset_name: lx-centos-stream-${{ matrix.RELEASE }}-${{ needs.prepare.outputs.tag }}.tar.xz
                   asset_content_type: application/x-xz
+
+    fedora:
+        needs: prepare
+        strategy:
+            matrix:
+                RELEASE:
+                    - 35
+
+        name: Build fedora ${{ matrix.RELEASE }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Build Image
+              id: build_image
+              run: |
+                  set -xe
+                  cd fedora
+                  tar=lx-fedora-${{ matrix.RELEASE }}.tar
+                  tag=release:$$
+                  docker build --tag $tag --build-arg FEDORA_RELEASE=${{ matrix.RELEASE }} .
+                  container=$(docker create $tag)
+                  docker cp $container:. - > $tar
+                  docker rm $container
+                  docker rmi $tag
+                  xz $tar
+            - name: Upload Release Asset
+              id: upload_release_asset
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ needs.prepare.outputs.upload_url }}
+                  asset_path: ./fedora/lx-fedora-${{ matrix.RELEASE }}.tar.xz
+                  asset_name: lx-fedora-${{ matrix.RELEASE }}-${{ needs.prepare.outputs.tag }}.tar.xz
+                  asset_content_type: application/x-xz
+
