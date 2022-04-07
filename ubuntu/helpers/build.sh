@@ -1,4 +1,5 @@
 #!/bin/sh
+
 set -ex
 echo Installing Ubuntu $UBUNTU_RELEASE
 export DEBIAN_FRONTEND=noninteractive
