@@ -34,6 +34,7 @@ jobs:
         strategy:
             matrix:
                 RELEASE:
+                    - 22.04
                     - 20.04
                     - 18.04
 
