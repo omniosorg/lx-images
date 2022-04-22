@@ -1,4 +1,5 @@
 #!/bin/sh
+
 set -ex
 echo Installing Ubuntu $UBUNTU_RELEASE
 export DEBIAN_FRONTEND=noninteractive
@@ -29,7 +30,7 @@ apt-get -qq autoremove
 # disable services we do not need
 systemctl mask systemd-remount-fs.service
 systemctl mask systemd-resolved fstrim.timer fstrim
-if [ ${UBUNTU_RELEASE} = "20.04" ]; then
+if [ ${UBUNTU_RELEASE} = "20.04" -o ${UBUNTU_RELEASE} = "22.04" ]; then
     systemctl mask e2scrub_reap e2scrub_all e2scrub_all.timer
     # systemd does not seem to realize that /dev/null is NOT a terminal
     # under lx but when trying to chown it, it fails and thus the `User=`
@@ -45,11 +46,15 @@ fi
 # disable systemd features not present in lx (e.g. cgroup support)
 for S in \
     systemd-hostnamed systemd-localed systemd-timedated systemd-logind \
-    systemd-initctl systemd-journald
+    systemd-initctl systemd-journald systemd-sysusers
 do
     O=/etc/systemd/system/${S}.service.d
     mkdir -p $O
-    cp override.conf ${O}/override.conf
+    if [ ${UBUNTU_RELEASE} = "22.04" ]; then
+	cp override22.conf ${O}/override.conf
+    else
+	cp override.conf ${O}/override.conf
+    fi
 done
 
 # This service doesn't exist yet but systemd will happily create the /dev/null
