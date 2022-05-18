@@ -23,7 +23,8 @@ apt-get install -yq \
     net-tools \
     iputils-ping \
     locales \
-    rsync
+    rsync \
+    tzdata
 apt-get -qq clean
 apt-get -qq autoremove
 
