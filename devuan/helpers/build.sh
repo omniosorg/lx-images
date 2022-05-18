@@ -23,6 +23,7 @@ apt-get install -yq \
 # consolekit to be installed automatically
 apt-get remove -yq elogind
 apt-get -qq clean
+rm -rf /var/lib/apt/lists/*
 apt-get -qq autoremove
 
 # disable services we do not need
