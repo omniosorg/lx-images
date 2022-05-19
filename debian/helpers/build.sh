@@ -22,6 +22,7 @@ apt-get install -yq \
     net-tools \
     iputils-ping
 apt-get -qq clean
+rm -rf /var/lib/apt/lists/*
 apt-get -qq autoremove
 
 # disable services we do not need
