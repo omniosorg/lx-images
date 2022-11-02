@@ -21,12 +21,11 @@ jobs:
 
             - name: Create Release
               id: create_release
-              uses: actions/create-release@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              uses: ncipollo/release-action@v1.11.1
               with:
-                  tag_name: ${{ steps.build_tag.outputs.tag }}
-                  release_name: Release ${{ steps.build_tag.outputs.tag }}
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  tag: ${{ steps.build_tag.outputs.tag }}
+                  name: Release ${{ steps.build_tag.outputs.tag }}
                   draft: false
                   prerelease: false
 
