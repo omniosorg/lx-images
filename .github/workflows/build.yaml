@@ -17,16 +17,15 @@ jobs:
         steps:
             - name: Create Time Stamp Tag
               id: build_tag
-              run: date +'::set-output name=tag::%Y-%m-%d_%H-%M-%S'
+              run: date +'tag=%Y-%m-%d_%H-%M-%S' >> $GITHUB_OUTPUT
 
             - name: Create Release
               id: create_release
-              uses: actions/create-release@v1
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              uses: ncipollo/release-action@v1.11.1
               with:
-                  tag_name: ${{ steps.build_tag.outputs.tag }}
-                  release_name: Release ${{ steps.build_tag.outputs.tag }}
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  tag: ${{ steps.build_tag.outputs.tag }}
+                  name: Release ${{ steps.build_tag.outputs.tag }}
                   draft: false
                   prerelease: false
 
@@ -60,7 +59,7 @@ jobs:
                   xz $tar
             - name: Upload Release Asset
               id: upload_release_asset
-              uses: actions/upload-release-asset@v1
+              uses: Fhwang0926/upload-release-asset@v1.1.17
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -98,7 +97,7 @@ jobs:
                   xz $tar
             - name: Upload Release Asset
               id: upload_release_asset
-              uses: actions/upload-release-asset@v1
+              uses: Fhwang0926/upload-release-asset@v1.1.17
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -136,7 +135,7 @@ jobs:
                   xz $tar
             - name: Upload Release Asset
               id: upload_release_asset
-              uses: actions/upload-release-asset@v1
+              uses: Fhwang0926/upload-release-asset@v1.1.17
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -168,7 +167,7 @@ jobs:
                   xz $tar
             - name: Upload Release Asset
               id: upload_release_asset
-              uses: actions/upload-release-asset@v1
+              uses: Fhwang0926/upload-release-asset@v1.1.17
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -206,7 +205,7 @@ jobs:
                   xz $tar
             - name: Upload Release Asset
               id: upload_release_asset
-              uses: actions/upload-release-asset@v1
+              uses: Fhwang0926/upload-release-asset@v1.1.17
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -243,7 +242,7 @@ jobs:
                   xz $tar
             - name: Upload Release Asset
               id: upload_release_asset
-              uses: actions/upload-release-asset@v1
+              uses: Fhwang0926/upload-release-asset@v1.1.17
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
