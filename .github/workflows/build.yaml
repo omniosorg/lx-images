@@ -17,7 +17,7 @@ jobs:
         steps:
             - name: Create Time Stamp Tag
               id: build_tag
-              run: date +'::set-output name=tag::%Y-%m-%d_%H-%M-%S'
+              run: date +'tag=%Y-%m-%d_%H-%M-%S' >> $GITHUB_OUTPUT
 
             - name: Create Release
               id: create_release
