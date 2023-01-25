@@ -1,0 +1,12 @@
+[Unit]
+Description=Remove dockerenv file
+After=network.target auditd.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/rm -f /.dockerenv
+ExecStartPost=/bin/systemctl disable remove_dockerenv_file.service
+
+[Install]
+WantedBy=multi-user.target
+# last line
