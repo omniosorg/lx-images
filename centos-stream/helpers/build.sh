@@ -8,8 +8,11 @@ dnf install -y --allowerasing \
     vim \
     binutils \
     dialog \
+    diffutils \
     openssh-server \
     openssh-clients \
+    procps-ng \
+    rsyslog \
     sudo \
     curl \
     less \

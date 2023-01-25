@@ -24,6 +24,7 @@ apt-get install -yq \
     iputils-ping \
     locales \
     rsync \
+    rsyslog \
     tzdata
 apt-get -qq clean
 rm -rf /var/lib/apt/lists/*
