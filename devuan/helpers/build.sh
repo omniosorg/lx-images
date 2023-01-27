@@ -9,6 +9,7 @@ apt-get install -yq \
     vim \
     binutils \
     cron \
+    dialog \
     openssh-server \
     sudo \
     iproute2 \
@@ -18,6 +19,7 @@ apt-get install -yq \
     joe \
     man-db \
     net-tools \
+    rsyslog \
     iputils-ping
 # Remove the elogind session manager - this will cause the alternative
 # consolekit to be installed automatically

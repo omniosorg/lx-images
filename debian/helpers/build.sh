@@ -20,6 +20,7 @@ apt-get install -yq \
     joe \
     man-db \
     net-tools \
+    rsyslog \
     iputils-ping
 apt-get -qq clean
 rm -rf /var/lib/apt/lists/*
