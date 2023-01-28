@@ -42,6 +42,6 @@ svdir=/etc/runit/runsvdir/default
 # Disable default agetty services
 rm -f $svdir/agetty-tty*
 
-# Enable serial console
+# Enable serial console and ssh
 ln -s /etc/sv/agetty-console $svdir/
-
+ln -s /etc/sv/sshd $svdir/
