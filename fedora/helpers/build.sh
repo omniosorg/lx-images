@@ -9,6 +9,7 @@ dnf install -y --allowerasing \
     binutils \
     dialog \
     diffutils \
+    iputils \
     openssh-server \
     openssh-clients \
     procps-ng \
