@@ -5,7 +5,6 @@ Before=ssh.service
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/ssh-keygen -A -v
-ExecStartPost=/bin/systemctl disable regenerate_ssh_host_keys
 
 [Install]
 WantedBy=multi-user.target
