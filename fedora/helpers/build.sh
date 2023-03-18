@@ -12,6 +12,7 @@ dnf install -y --allowerasing \
     iputils \
     openssh-server \
     openssh-clients \
+    passwd \
     procps-ng \
     rsyslog \
     sudo \
