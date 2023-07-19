@@ -288,3 +288,40 @@ jobs:
                   asset_path: ./alma/lx-alma-${{ matrix.RELEASE }}.tar.xz
                   asset_name: lx-alma-${{ matrix.RELEASE }}-${{ needs.prepare.outputs.tag }}.tar.xz
                   asset_content_type: application/x-xz
+    rocky:
+        needs: prepare
+        strategy:
+            matrix:
+                RELEASE:
+                    - 8
+                    - 9
+
+        name: Build RockyLinux ${{ matrix.RELEASE }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Build Image
+              id: build_image
+              run: |
+                  set -xe
+                  cd rocky
+                  tar=lx-rocky-${{ matrix.RELEASE }}.tar
+                  tag=release:$$
+                  docker build --tag $tag --build-arg ROCKY_RELEASE=${{ matrix.RELEASE }} .
+                  container=$(docker create $tag)
+                  docker cp $container:. - > $tar
+                  docker rm $container
+                  docker rmi $tag
+                  xz $tar
+            - name: Upload Release Asset
+              id: upload_release_asset
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ needs.prepare.outputs.upload_url }}
+                  asset_path: ./rocky/lx-rocky-${{ matrix.RELEASE }}.tar.xz
+                  asset_name: lx-rocky-${{ matrix.RELEASE }}-${{ needs.prepare.outputs.tag }}.tar.xz
+                  asset_content_type: application/x-xz
