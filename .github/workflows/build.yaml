@@ -73,6 +73,7 @@ jobs:
         strategy:
             matrix:
                 RELEASE:
+                    - bookworm
                     - bullseye
                     - buster
 
