@@ -15,5 +15,6 @@ Curently the following linuxes are supported
 * CentOS stream 8
 * CentOS stream 9
 * Fedora 35
+* Alpine 3
 
 See [Releases](https://github.com/omniosorg/lx-images/releases) for image downloads.
