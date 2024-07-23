@@ -19,6 +19,9 @@ apt-get install -yq \
     joe \
     man-db \
     net-tools \
+    locales \
+    rsync \
+    tzdata \
     rsyslog \
     iputils-ping
 # Remove the elogind session manager - this will cause the alternative
@@ -38,6 +41,9 @@ cp makedev /etc/apt/preferences.d/makedev
 cp locale.conf /etc/locale.conf
 cp locale /etc/default/locale
 #cp hosts /etc/hosts.lx
+
+# Generate missing locales
+locale-gen
 
 # make sure we get fresh ssh keys on first boot
 rm -fv /etc/ssh/ssh_host_*_key*

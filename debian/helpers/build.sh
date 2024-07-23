@@ -20,6 +20,9 @@ apt-get install -yq \
     joe \
     man-db \
     net-tools \
+    locales \
+    rsync \
+    tzdata \
     rsyslog \
     iputils-ping
 apt-get -qq clean
@@ -46,6 +49,9 @@ cp makedev /etc/apt/preferences.d/makedev
 cp locale.conf /etc/locale.conf
 cp locale /etc/default/locale
 cp hosts /etc/hosts.lx
+
+# Generate missing locales
+locale-gen
 
 # make sure we get fresh ssh keys on first boot
 /bin/rm -f -v /etc/ssh/ssh_host_*_key*

@@ -10,6 +10,8 @@ dnf install -y --allowerasing \
     dialog \
     diffutils \
     iputils \
+    langpacks-en \
+    glibc-langpack-en \
     openssh-server \
     openssh-clients \
     passwd \
