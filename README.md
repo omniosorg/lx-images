@@ -12,7 +12,6 @@ Curently the following linuxes are supported
 * Devuan Beowulf
 * Devuan Chimeara
 * Void Linux
-* CentOS stream 8
 * CentOS stream 9
 * Fedora 35
 * Alpine 3

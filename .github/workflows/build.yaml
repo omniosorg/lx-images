@@ -182,7 +182,6 @@ jobs:
         strategy:
             matrix:
                 RELEASE:
-                    - 8
                     - 9
 
         name: Build Centos Stream ${{ matrix.RELEASE }}
