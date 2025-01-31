@@ -5,6 +5,9 @@ echo Installing Ubuntu $UBUNTU_RELEASE
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -yq apt-utils
+if ! command -v unminimize; then
+    apt-get install -yq unminimize
+fi
 yes | unminimize
 apt-get install -yq \
     systemd-sysv \
