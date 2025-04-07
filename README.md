@@ -13,7 +13,7 @@ Curently the following linuxes are supported
 * Devuan Chimeara
 * Void Linux
 * CentOS stream 9
-* Fedora 35
+* Fedora 41
 * Alpine 3
 
 See [Releases](https://github.com/omniosorg/lx-images/releases) for image downloads.
