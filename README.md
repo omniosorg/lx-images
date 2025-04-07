@@ -7,10 +7,10 @@ Curently the following linuxes are supported
 * Ubuntu 20.04
 * Ubuntu 22.04
 * Ubuntu 24.04
-* Debian Buster
 * Debian Bullseye
-* Devuan Beowulf
+* Debian Bookworm
 * Devuan Chimeara
+* Devuan Daedalus
 * Void Linux
 * CentOS stream 9
 * Fedora 41

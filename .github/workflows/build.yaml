@@ -75,7 +75,6 @@ jobs:
                 RELEASE:
                     - bookworm
                     - bullseye
-                    - buster
 
         name: Build Debian ${{ matrix.RELEASE }}
         runs-on: ubuntu-latest
@@ -112,8 +111,8 @@ jobs:
         strategy:
             matrix:
                 RELEASE:
+                    - daedalus
                     - chimaera
-                    - beowulf
 
         name: Build Devuan ${{ matrix.RELEASE }}
         runs-on: ubuntu-latest
