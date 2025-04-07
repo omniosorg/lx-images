@@ -98,7 +98,7 @@ jobs:
                   xz $tar
             - name: Upload Release Asset
               id: upload_release_asset
-              uses: sekwah41/upload-release-assets@v1.1.0
+              uses: actions/upload-release-asset@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -136,7 +136,7 @@ jobs:
                   xz $tar
             - name: Upload Release Asset
               id: upload_release_asset
-              uses: sekwah41/upload-release-assets@v1.1.0
+              uses: actions/upload-release-asset@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -168,7 +168,7 @@ jobs:
                   xz $tar
             - name: Upload Release Asset
               id: upload_release_asset
-              uses: sekwah41/upload-release-assets@v1.1.0
+              uses: actions/upload-release-asset@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -205,7 +205,7 @@ jobs:
                   xz $tar
             - name: Upload Release Asset
               id: upload_release_asset
-              uses: sekwah41/upload-release-assets@v1.1.0
+              uses: actions/upload-release-asset@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -242,7 +242,7 @@ jobs:
                   xz $tar
             - name: Upload Release Asset
               id: upload_release_asset
-              uses: sekwah41/upload-release-assets@v1.1.0
+              uses: actions/upload-release-asset@v1
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
@@ -263,7 +263,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
             - name: Build Image
               id: build_image
@@ -300,7 +300,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
             - name: Build Image
               id: build_image
