@@ -31,11 +31,6 @@ apt-get -qq clean
 rm -rf /var/lib/apt/lists/*
 apt-get -qq autoremove
 
-# disable services we do not need
-for s in checkroot-bootclean.sh; do
-	update-rc.d $s defaults-disabled
-done
-
 # Prevents apt-get upgrade issue when upgrading in a container environment.
 cp makedev /etc/apt/preferences.d/makedev
 cp locale.conf /etc/locale.conf
@@ -63,4 +58,4 @@ rm dtracetools-lx_1.0_amd64.deb
 mkdir -p /var/svc /var/db
 
 # remove .dockerenv file because lx is not a docker
-rm /.dockerenv
+rm -f /.dockerenv
