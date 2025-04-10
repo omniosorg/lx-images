@@ -30,7 +30,8 @@ xbps-install -ySu \
 	ncurses-base \
 	openssh joe vim \
 	rsyslog \
-	jq
+	jq \
+	bash
 
 xbps-alternatives -g vi -s vim-common
 

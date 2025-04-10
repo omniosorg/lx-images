@@ -4,17 +4,18 @@
 
 Curently the following linuxes are supported
 
-* Ubuntu 18.04
 * Ubuntu 20.04
 * Ubuntu 22.04
 * Ubuntu 24.04
-* Debian Buster
 * Debian Bullseye
-* Devuan Beowulf
+* Debian Bookworm
 * Devuan Chimeara
+* Devuan Daedalus
 * Void Linux
 * CentOS stream 9
-* Fedora 35
+* Fedora 41
 * Alpine 3
+* Alma 8
+* Alma 9
 
 See [Releases](https://github.com/omniosorg/lx-images/releases) for image downloads.
