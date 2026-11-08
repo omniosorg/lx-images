@@ -4,18 +4,21 @@
 
 Curently the following linuxes are supported
 
-* Ubuntu 20.04
 * Ubuntu 22.04
 * Ubuntu 24.04
-* Debian Bullseye
+* Ubuntu 26.04
 * Debian Bookworm
-* Devuan Chimeara
+* Debian Trixie
 * Devuan Daedalus
+* Devuan Excalibur
 * Void Linux
 * CentOS stream 9
-* Fedora 41
+* CentOS stream 10
+* Fedora 44
 * Alpine 3
-* Alma 8
 * Alma 9
+* Alma 10
+* Rocky 9
+* Rocky 10
 
 See [Releases](https://github.com/omniosorg/lx-images/releases) for image downloads.
