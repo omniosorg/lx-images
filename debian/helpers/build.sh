@@ -31,8 +31,7 @@ apt-get -qq autoremove
 
 # disable services we do not need
 systemctl disable \
-    systemd-resolved fstrim.timer fstrim \
-    e2scrub_reap e2scrub_all e2scrub_all.timer
+    systemd-resolved fstrim.timer fstrim
 
 # disable systemd features not present in lx (e.g. cgroup support)
 for S in \
@@ -43,6 +42,27 @@ do
     mkdir -p $O
     cp override.conf ${O}/override.conf
 done
+
+# credentials & ambient capabilities are not present in lx
+for S in \
+    systemd-journald systemd-sysusers \
+    systemd-tmpfiles-setup systemd-tmpfiles-setup-dev \
+    systemd-tmpfiles-setup-dev-early systemd-tmpfiles-clean
+do
+    O=/etc/systemd/system/${S}.service.d
+    mkdir -p $O
+    cp no-creds.conf ${O}/no-creds.conf
+done
+mkdir -p /etc/systemd/system/dbus.service.d
+cp no-ambient-caps.conf /etc/systemd/system/dbus.service.d/no-ambient-caps.conf
+
+# user@ fails on releases before r151060
+mkdir -p /etc/systemd/system/user@.service.d
+cp no-delegate-subgroup.conf /etc/systemd/system/user@.service.d/no-delegate-subgroup.conf
+
+# units that fail in lx
+systemctl mask console-getty.service tmp.mount run-lock.mount \
+    e2scrub_reap.service e2scrub_all.service e2scrub_all.timer
 
 # Prevents apt-get upgrade issue when upgrading in a container environment.
 cp makedev /etc/apt/preferences.d/makedev
